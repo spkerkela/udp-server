@@ -1,11 +1,10 @@
-#include <stdio.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <string.h>
 #include <arpa/inet.h>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/socket.h>
 
-int main()
-{
+int main() {
   int clientSocket, portNum, nBytes;
   char buffer[1024];
   struct sockaddr_in serverAddr;
@@ -23,8 +22,7 @@ int main()
   /*Initialize size variable to be used later on*/
   addr_size = sizeof serverAddr;
 
-  while (1)
-  {
+  while (1) {
     printf("Type a sentence to send to server:\n");
     fgets(buffer, 1024, stdin);
     printf("You typed: %s", buffer);
@@ -32,7 +30,8 @@ int main()
     nBytes = strlen(buffer) + 1;
 
     /*Send message to server*/
-    sendto(clientSocket, buffer, nBytes, 0, (struct sockaddr *)&serverAddr, addr_size);
+    sendto(clientSocket, buffer, nBytes, 0, (struct sockaddr *)&serverAddr,
+           addr_size);
 
     /*Receive message from server*/
     nBytes = recvfrom(clientSocket, buffer, 1024, 0, NULL, NULL);
